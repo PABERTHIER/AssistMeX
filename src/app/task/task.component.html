@@ -1,0 +1,70 @@
+<div class="tasks-component">
+  <div class="tasks-container">
+    <div *ngIf="tasks.length; else elseBlock" class="task-container">
+      <div class="task" *ngFor="let task of tasks" cdkDrag>
+        <div class="task-infos">
+          <div class="task-name">
+            {{ task.name }}
+          </div>
+          <div class="task-value">
+            {{ task.value }}
+          </div>
+        </div>
+        <div class="action-buttons-container">
+          <div class="action-button">
+            <button (click)="openTaskUpdate(task)">
+              🖊
+            </button>
+          </div>
+          <div class="action-button">
+            <button (click)="deleteTask(task)" class="remove-icon">
+              ❌
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlock>There is no task, add some 😉</ng-template>
+  </div>
+  <div class="form-container">
+    <div class="form-header">
+      Add new Task:
+    </div>
+    <div class="input-container">
+      <div class="input">
+        <input [(ngModel)]="newTask.name" placeholder="Task Name">
+      </div>
+      <div class="input">
+        <input [(ngModel)]="newTask.value" placeholder="Task Value">
+      </div>
+      <div class="button-container">
+        <button (click)="addTask()">
+          ➕
+        </button>
+      </div>
+    </div>
+    <div *ngIf="error" class="error-container">
+      <div class="error">
+        {{ error }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="taskIsInEditionMode" class="task-edition-container">
+    <div class="edition-header">
+      Edit this task:
+    </div>
+    <div class="input-container">
+      <div class="input">
+        <input [(ngModel)]="taskToUpdate.name" placeholder="Task Name">
+      </div>
+      <div class="input">
+        <input [(ngModel)]="taskToUpdate.value" placeholder="Task Value">
+      </div>
+      <div class="button-container">
+        <button (click)="editTask()">
+          ⏺
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
