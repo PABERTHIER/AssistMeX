@@ -11,8 +11,8 @@ export class TaskComponent {
     new EventEmitter<CdkDragDrop<any, any>>();
 
   tasks: ITask[] = [];
-  newTask: ITask = { id: 0, name: '', value: '' };
-  taskToUpdate: ITask = { id: 0, name: '', value: '' };
+  newTask: ITask = { id: 0, name: '', description: '', enabled: true };
+  taskToUpdate: ITask = { id: 0, name: '', description: '', enabled: true };
   error?: string = undefined;
   taskIsInEditionMode: boolean = false;
 
@@ -21,23 +21,26 @@ export class TaskComponent {
       {
         id: 1,
         name: 'Task1',
-        value: 'toto',
+        description: 'toto',
+        enabled: true,
       },
       {
         id: 2,
         name: 'Task2',
-        value: 'tutu',
+        description: 'tutu',
+        enabled: true,
       },
       {
         id: 3,
         name: 'Task3',
-        value: 'titi',
+        description: 'titi',
+        enabled: true,
       },
     ];
   }
 
   addTask(): void {
-    if (this.newTask.name.trim() !== '' && this.newTask.value.trim() !== '') {
+    if (this.newTask.name.trim() !== '' && this.newTask.description.trim() !== '') {
       if (this.tasks.length) {
         this.newTask.id = this.tasks[this.tasks.length - 1].id + 1;
       } else {
@@ -49,7 +52,7 @@ export class TaskComponent {
       this.error = undefined;
     } else if (this.newTask.name.trim() === '') {
       this.error = 'You need a name for the task !!';
-    } else if (this.newTask.value.trim() === '') {
+    } else if (this.newTask.description.trim() === '') {
       this.error = 'You need a value for the task !!';
     }
   }
@@ -59,14 +62,19 @@ export class TaskComponent {
 
     if (taskToUpdate) {
       taskToUpdate.name = this.taskToUpdate.name;
-      taskToUpdate.value = this.taskToUpdate.value;
+      taskToUpdate.description = this.taskToUpdate.description;
     }
     this.taskIsInEditionMode = !this.taskIsInEditionMode;
   }
 
   deleteTask(task: ITask): void {
-    console.log(task);
     this.tasks = this.tasks.filter((t) => t.id !== task.id);
+  }
+
+  toggleTaskVisibility(task: ITask): void {
+    const taskToDisableIndex = this.tasks.findIndex((t) => t.id === task.id);
+    this.tasks[taskToDisableIndex].enabled =
+      !this.tasks[taskToDisableIndex].enabled;
   }
 
   openTaskUpdate(task: ITask): void {
@@ -75,12 +83,13 @@ export class TaskComponent {
   }
 
   resetNewTask(): void {
-    this.newTask = { id: 0, name: '', value: '' };
+    this.newTask = { id: 0, name: '', description: '', enabled: true };
   }
 }
 
 export interface ITask {
   id: number
   name: string
-  value: string
+  description: string
+  enabled: boolean
 }

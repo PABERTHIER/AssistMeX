@@ -2,12 +2,12 @@
   <div class="tasks-container">
     <div *ngIf="tasks.length; else elseBlock" class="task-container">
       <div class="task" *ngFor="let task of tasks" cdkDrag>
-        <div class="task-infos">
+        <div *ngIf="task.enabled" class="task-infos">
           <div class="task-name">
             {{ task.name }}
           </div>
           <div class="task-value">
-            {{ task.value }}
+            {{ task.description }}
           </div>
         </div>
         <div class="action-buttons-container">
@@ -17,7 +17,12 @@
             </button>
           </div>
           <div class="action-button">
-            <button (click)="deleteTask(task)" class="remove-icon">
+            <button (click)="toggleTaskVisibility(task)">
+              🏴
+            </button>
+          </div>
+          <div class="action-button">
+            <button (click)="deleteTask(task)">
               ❌
             </button>
           </div>
@@ -35,7 +40,7 @@
         <input [(ngModel)]="newTask.name" placeholder="Task Name">
       </div>
       <div class="input">
-        <input [(ngModel)]="newTask.value" placeholder="Task Value">
+        <input [(ngModel)]="newTask.description" placeholder="Task Value">
       </div>
       <div class="button-container">
         <button (click)="addTask()">
@@ -58,7 +63,7 @@
         <input [(ngModel)]="taskToUpdate.name" placeholder="Task Name">
       </div>
       <div class="input">
-        <input [(ngModel)]="taskToUpdate.value" placeholder="Task Value">
+        <input [(ngModel)]="taskToUpdate.description" placeholder="Task Value">
       </div>
       <div class="button-container">
         <button (click)="editTask()">
