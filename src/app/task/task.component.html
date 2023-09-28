@@ -4,7 +4,7 @@
       <div class="task" *ngFor="let task of tasks" cdkDrag>
         <div *ngIf="task.enabled" class="task-infos">
           <div class="task-name">
-            {{ task.name }}
+            <a [routerLink]="['/tasks', task.id]">{{ task.name }}</a>
           </div>
           <div class="task-value">
             {{ task.description }}
@@ -18,7 +18,7 @@
           </div>
           <div class="action-button">
             <button (click)="toggleTaskVisibility(task)">
-              🏴
+              👀
             </button>
           </div>
           <div class="action-button">
