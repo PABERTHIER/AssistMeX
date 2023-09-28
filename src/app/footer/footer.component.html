@@ -1,0 +1,9 @@
+<div class="footer-container">
+  <mat-slide-toggle
+    [ngModel]="checked"
+    [color]="'primary'"
+    (change)="toggle()">
+    Switch the version ->
+  </mat-slide-toggle>
+  <div class="version">{{ version }}</div>
+</div>
