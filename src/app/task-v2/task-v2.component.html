@@ -1,0 +1,75 @@
+<div class="tasks-component">
+  <div class="tasks-container">
+    <div *ngIf="tasks.length; else elseBlock" class="task-container">
+      <div class="task" *ngFor="let task of tasks" cdkDrag>
+        <div *ngIf="task.enabled" class="task-infos">
+          <div class="task-name">
+            <a [routerLink]="['/tasks', task.id]">{{ task.name }}</a>
+          </div>
+          <div class="task-value">
+            {{ task.description }}
+          </div>
+        </div>
+        <div class="action-buttons-container">
+          <div class="action-button">
+            <button (click)="openTaskUpdate(task)">
+              🖊
+            </button>
+          </div>
+          <div class="action-button">
+            <button (click)="toggleTaskVisibility(task)">
+              👀
+            </button>
+          </div>
+          <div class="action-button">
+            <button (click)="deleteTask(task)">
+              ❌
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlock>There is no task, add some 😉</ng-template>
+  </div>
+  <div class="form-container">
+    <div class="form-header">
+      Add new Task:
+    </div>
+    <div class="input-container">
+      <div class="input">
+        <input [(ngModel)]="newTask.name" placeholder="Task Name">
+      </div>
+      <div class="input">
+        <input [(ngModel)]="newTask.description" placeholder="Task Value">
+      </div>
+      <div class="button-container">
+        <button (click)="addTask()">
+          ➕
+        </button>
+      </div>
+    </div>
+    <div *ngIf="error" class="error-container">
+      <div class="error">
+        {{ error }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="taskIsInEditionMode" class="task-edition-container">
+    <div class="edition-header">
+      Edit this task:
+    </div>
+    <div class="input-container">
+      <div class="input">
+        <input [(ngModel)]="taskToUpdate.name" placeholder="Task Name">
+      </div>
+      <div class="input">
+        <input [(ngModel)]="taskToUpdate.description" placeholder="Task Value">
+      </div>
+      <div class="button-container">
+        <button (click)="editTask()">
+          ⏺
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

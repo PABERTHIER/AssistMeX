@@ -1,12 +1,14 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { TaskState, reducer as taskReducer } from './tasks/state';
+import { taskReducerV2 } from './tasksV2/reducer';
+import { ITaskStateV2 } from './tasksV2/state';
 
 export interface AppState {
   tasks: TaskState;
-  // Define other parts of your application state here
+  tasksStateV2: ITaskStateV2;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   tasks: taskReducer,
-  // Add other reducers as needed
+  tasksStateV2: taskReducerV2
 };

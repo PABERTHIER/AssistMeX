@@ -12,17 +12,28 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from 'src/store/app.state';
+import { TaskEffects } from 'src/store/tasks/effects';
+import { TaskEffectsV2 } from 'src/store/tasksV2/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TaskV2Component } from './task-v2/task-v2.component';
 
 @NgModule({
-  declarations: [AppComponent, TaskComponent, HeaderComponent, TaskDetailsComponent],
+  declarations: [
+    AppComponent,
+    TaskComponent,
+    TaskV2Component,
+    HeaderComponent,
+    TaskDetailsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
-    EffectsModule,
+    EffectsModule.forRoot([TaskEffects, TaskEffectsV2]),
     FormsModule,
     BrowserAnimationsModule,
     DragDropModule,
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,130 @@
+.tasks-component {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  .tasks-container {
+    display: flex;
+    margin-bottom: 50px;
+    .task-container {
+      display: flex;
+      flex-wrap: wrap;
+      .task {
+        width: 100px;
+        border-radius: 10px;
+        border: 1px solid #caca;
+        background-color: #f1f1f1;
+        box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
+
+        .task-infos {
+          margin-bottom: 20px;
+          .task-name {
+            font-weight: bold;
+          }
+          .task-value {
+            color: red;
+          }
+        }
+        .action-buttons-container {
+          display: flex;
+          flex-grow: 1;
+          justify-content: space-around;
+          background-color: white;
+          border-radius: 10px;
+          padding: 5px;
+          .action-button {
+            cursor: pointer;
+          }
+        }
+      }
+      .task:active {
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    .form-header {
+      margin-bottom: 10px;
+    }
+    .input-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 50px;
+      .input {
+        position: relative;
+        display: inherit;
+        margin-right: 25px;
+        outline: none;
+        position: relative;
+        background: linear-gradient(21deg, #10abff, #1beabd);
+        padding: 2px;
+        display: inline-block;
+        border-radius: 9999em;
+      }
+      .button-container {
+        margin-left: 25px;
+      }
+    }
+
+    .error-container {
+      .error {
+        font-weight: bold;
+        color: red;
+        text-align: center;
+      }
+    }
+  }
+  .task-edition-container {
+    .edition-header {
+      margin-bottom: 10px;
+    }
+    .input-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 50px;
+      .input {
+        position: relative;
+        display: inherit;
+        margin-right: 25px;
+        outline: none;
+        position: relative;
+        background: linear-gradient(21deg, #10abff, #1beabd);
+        padding: 2px;
+        display: inline-block;
+        border-radius: 9999em;
+      }
+      .button-container {
+        margin-left: 25px;
+      }
+    }
+  }
+}
+
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+input {
+  padding: 5px;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  border-radius: 9999em;
+}
