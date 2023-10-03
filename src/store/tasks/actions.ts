@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { ITask } from 'src/app/task/task-type';
 
@@ -16,5 +17,13 @@ export const addTask = createAction(
 );
 export const updateTask = createAction(
   '[Task] Update Task',
-  props<{ id: number; updatedTask: ITask }>()
+  props<{ taskToUpdate: Update<ITask> }>()
+);
+export const deleteTask = createAction(
+  '[Task] Delete Task',
+  props<{ taskToDelete: ITask }>()
+);
+export const toggleTaskVisibility = createAction(
+  '[Task] Toggle Task Visibility',
+  props<{ taskToToggleVisibility: Update<ITask> }>()
 );

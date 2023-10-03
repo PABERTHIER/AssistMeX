@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ITask } from './task-type';
-import { selectAllTasks } from 'src/store/tasks/selectors';
 import { Store } from '@ngrx/store';
-import { addTask, loadTasks, updateTask } from 'src/store/tasks/actions';
+import { addTask, deleteTask, loadTasks, toggleTaskVisibility, updateTask } from 'src/store/tasks/actions';
+import { selectAllTasks, selectTasksAreLoaded } from 'src/store/tasks/selectors';
+import { ITask } from './task-type';
 
 @Component({
   selector: 'app-task',
@@ -29,13 +29,23 @@ export class TaskComponent implements OnInit {
     status: 'Todo',
     enabled: true,
   };
+  isLoaded: boolean = false;
   error?: string = undefined;
   taskIsInEditionMode: boolean = false;
 
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.store.dispatch(loadTasks());
+    this.store.select(selectTasksAreLoaded).subscribe((isLoaded) => {
+      this.isLoaded = isLoaded
+    })
+
+    if (!this.isLoaded) {
+      this.store.dispatch(loadTasks());
+      this.store.select(selectTasksAreLoaded).subscribe((isLoaded) => {
+        this.isLoaded = isLoaded;
+      });
+    }
 
     this.store.select(selectAllTasks).subscribe((tasks) => {
       this.tasks = tasks;
@@ -43,24 +53,8 @@ export class TaskComponent implements OnInit {
   }
 
   addTask(): void {
-    if (
-      this.newTask.name.trim() !== '' &&
-      this.newTask.description.trim() !== ''
-    ) {
-      if (this.tasks.length) {
-        this.newTask.id = this.tasks[this.tasks.length - 1].id + 1;
-      } else {
-        this.newTask.id = 1;
-      }
-
-      this.store.dispatch(addTask({taskToAdd: this.newTask}));
-
-      // this.store.select(selectAllTasks).subscribe((tasks) => {
-      //   // Here, 'tasks' contains the array of tasks selected from the store
-      //   this.tasks = tasks;
-      // });
-
-      // this.tasks.push({ ...this.newTask });
+    if (this.newTask.name.trim() !== '' && this.newTask.description.trim() !== '') {
+      this.store.dispatch(addTask({ taskToAdd: this.newTask }));
       this.resetNewTask();
       this.error = undefined;
     } else if (this.newTask.name.trim() === '') {
@@ -72,25 +66,18 @@ export class TaskComponent implements OnInit {
 
   editTask(): void {
     this.store.dispatch(
-      updateTask({ id: this.taskToUpdate.id, updatedTask: this.taskToUpdate })
+      updateTask({ taskToUpdate: { id: this.taskToUpdate.id, changes: this.taskToUpdate } })
     );
-    // const taskToUpdate = this.tasks.find((t) => t.id === this.taskToUpdate.id);
 
-    // if (taskToUpdate) {
-    //   taskToUpdate.name = this.taskToUpdate.name;
-    //   taskToUpdate.description = this.taskToUpdate.description;
-    // }
     this.taskIsInEditionMode = !this.taskIsInEditionMode;
   }
 
   deleteTask(task: ITask): void {
-    this.tasks = this.tasks.filter((t) => t.id !== task.id);
+    this.store.dispatch(deleteTask({ taskToDelete: task }))
   }
 
   toggleTaskVisibility(task: ITask): void {
-    const taskToDisableIndex = this.tasks.findIndex((t) => t.id === task.id);
-    this.tasks[taskToDisableIndex].enabled =
-      !this.tasks[taskToDisableIndex].enabled;
+    this.store.dispatch(toggleTaskVisibility({ taskToToggleVisibility: { id: task.id, changes: task}}))
   }
 
   openTaskUpdate(task: ITask): void {

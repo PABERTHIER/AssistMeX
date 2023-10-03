@@ -1,7 +1,8 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { TaskState, reducer as taskReducer } from './tasks/state';
-import { taskReducerV2 } from './tasksV2/reducer';
+import { TaskState } from './tasks/state';
 import { ITaskStateV2 } from './tasksV2/state';
+import { taskReducer } from './tasks/reducer';
+import { taskReducerV2 } from './tasksV2/reducer';
 
 export interface AppState {
   tasks: TaskState;

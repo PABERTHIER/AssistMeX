@@ -1,36 +1,49 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 import { TaskState, initialState, tasksAdapter } from './state';
-import { addTask, loadTasks, loadTasksFailure, loadTasksSuccess, updateTask } from './actions';
+import { addTask, deleteTask, loadTasks, loadTasksFailure, loadTasksSuccess, toggleTaskVisibility, updateTask } from './actions';
+import { ITask } from 'src/app/task/task-type';
 
 const _taskReducer = createReducer(
   initialState,
   on(loadTasks, (state) => ({
+    ...state
+  })),
+  on(loadTasksSuccess, (state, action: { tasks: ITask[] }) => ({
+    ...tasksAdapter.upsertMany(action.tasks, state),
+    isLoaded: true,
+  })),
+  on(loadTasksFailure, (state, action: { error: string }) => ({
     ...state,
-    loading: true,
+    isLoaded: true,
+    error: action.error,
   })),
-  on(loadTasksSuccess, (state, { tasks }) => ({
-    ...tasksAdapter.upsertMany(tasks, state),
-    loading: false,
-  })),
-  on(loadTasksFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
-  on(addTask, (state, { taskToAdd }) => ({
-    ...tasksAdapter.addOne(taskToAdd, { ...state }),
-    loading: false
-  })),
-  on(updateTask, (state, { id, updatedTask }) => {
-    console.log('id', id);
-    console.log('updatedTask', updatedTask);
-    const taskIndex = state.ids.findIndex((taskId) => taskId === id);
+  on(addTask, (state, action: { taskToAdd: ITask }) => {
+    let newTask = { ...action.taskToAdd }
+    const tasks = tasksAdapter.getSelectors().selectAll(state);
 
-    if (taskIndex >= 0) {
-      return tasksAdapter.updateOne({ id, changes: updatedTask }, { ...state });
+    if (tasks.length && tasks[tasks.length - 1]?.id) {
+      newTask.id = tasks[tasks.length - 1]!.id + 1;
+    } else {
+      newTask.id = 1;
     }
 
-    return state;
+    return tasksAdapter.addOne(newTask, { ...state })
+  }),
+  on(updateTask, (state, action: { taskToUpdate: Update<ITask> }) => {
+    return tasksAdapter.updateOne(action.taskToUpdate, state);
+  }),
+  on(deleteTask, (state, action: { taskToDelete: ITask }) => {
+    return tasksAdapter.removeOne(action.taskToDelete.id, state);
+  }),
+  on(toggleTaskVisibility, (state, action: { taskToToggleVisibility: Update<ITask> }) => {
+    const tasks = tasksAdapter.getSelectors().selectAll(state);
+    const id = parseInt(action.taskToToggleVisibility.id.toString(), 10);
+    const taskToToggleVisibility = { ...tasks[id - 1] };
+
+    taskToToggleVisibility.enabled = !taskToToggleVisibility.enabled;
+
+    return tasksAdapter.updateOne({ id, changes: taskToToggleVisibility }, state);
   })
 );
 

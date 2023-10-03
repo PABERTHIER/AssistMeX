@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { selectAllTasksV2, selectTasksAreLoadedV2 } from 'src/store/tasksV2/selectors';
 import { Store } from '@ngrx/store';
+import { selectAllTasksV2, selectTasksAreLoadedV2 } from 'src/store/tasksV2/selectors';
 import { deleteTaskV2, loadTasksV2, toggleTaskVisibilityV2, updateTaskV2 } from 'src/store/tasksV2/actions';
 import { addTaskV2 } from 'src/store/tasksV2/actions';
 import { ITask } from '../task/task-type';
