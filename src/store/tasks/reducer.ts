@@ -39,8 +39,8 @@ const _taskReducer = createReducer(
   on(toggleTaskVisibility, (state, action: { taskToToggleVisibility: Update<ITask> }) => {
     const tasks = tasksAdapter.getSelectors().selectAll(state);
     const id = parseInt(action.taskToToggleVisibility.id.toString(), 10);
-    const taskToDisableIndex = tasks.findIndex((t) => t.id === action.taskToToggleVisibility.id);
-    const taskToToggleVisibility = { ...tasks[taskToDisableIndex] };
+    const taskToToggleVisibilityIndex = tasks.findIndex((t) => t.id === action.taskToToggleVisibility.id);
+    const taskToToggleVisibility = { ...tasks[taskToToggleVisibilityIndex] };
 
     taskToToggleVisibility.enabled = !taskToToggleVisibility.enabled;
 
