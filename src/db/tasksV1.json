@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "name": "Task1",
+      "description": "toto",
+      "status": "Todo",
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "name": "Task2",
+      "description": "tutu",
+      "status": "WIP",
+      "enabled": true
+    },
+    {
+      "id": 3,
+      "name": "Task3",
+      "description": "titi",
+      "status": "Done",
+      "enabled": true
+    }
+  ]
+}
