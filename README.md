@@ -1,6 +1,23 @@
-# MyApp
+# AssistMeX
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+
+## What is it ?
+
+This is a small project, created to learn how to use Angular 16 from scratch.
+This project covers all basics concepts of Angular.
+More in depth, this is a task management application.
+You can add, edit, update, delete and hide tasks.
+Each task is displayed in the home page, they can be moved and placed anywhere (`'@angular/cdk/drag-drop'`).
+By using the routing, it is possible to navigate into the content of each task and then go back to the home.
+
+The switch button in the footer will change the version of the store archictecture used in the application.
+To make my own opinion about which is the best architecture to use, I've implemented both to highlight the strength for each:
+
+- The V1 is about the optimized way by using an adapter: [ngrx](https://ngrx.io/guide/entity/adapter).
+- The V2 is about the basic way.
+
+The entry point of data is a json file, that is read at the startup of the application, there is, at the moment, no mechanism to save the new tasks in a database.
 
 ## Development server
 
