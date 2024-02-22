@@ -1,10 +1,11 @@
 # AssistMeX
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+The actual version is now 17.2.2.
 
 ## What is it ?
 
-This is a small project, created to learn how to use Angular 16 from scratch.
+This is a small project, created to learn how to use Angular 16/17 from scratch.
 This project covers all basics concepts of Angular.
 More in depth, this is a task management application.
 You can add, edit, update, delete and hide tasks.
