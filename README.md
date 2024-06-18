@@ -1,7 +1,9 @@
 # AssistMeX
 
+[![CICD](https://github.com/PABERTHIER/AssistMeX/actions/workflows/build.yml/badge.svg)](https://github.com/PABERTHIER/AssistMeX/actions/workflows/build.yml)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
-The actual version is now 17.2.2.
+The actual version is now 18.0.3.
 
 ## What is it ?
 
