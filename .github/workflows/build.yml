@@ -13,18 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '22'
 
     - name: Display Node.js version
       run: node --version
 
-    - name: Install Yarn
-      run: npm install -g yarn
+    - name: Enable Corepack
+      run: corepack enable
+
+    - name: Setup Yarn
+      run: corepack prepare yarn@4.5.1 --activate
 
     - name: Install dependencies
       run: yarn install
