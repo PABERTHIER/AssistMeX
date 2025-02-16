@@ -6,6 +6,7 @@ import { ITask } from '../task/task-type';
   selector: 'app-task-details',
   templateUrl: './task-details.component.html',
   styleUrls: ['./task-details.component.scss'],
+  standalone: false
 })
 export class TaskDetailsComponent implements OnInit {
   task: ITask = {

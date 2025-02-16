@@ -9,6 +9,7 @@ import { ITask } from './task-type';
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
+  standalone: false
 })
 export class TaskComponent implements OnInit {
   @Output() cdkDropDropped: EventEmitter<CdkDragDrop<any, any>> =
