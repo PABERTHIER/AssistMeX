@@ -2709,6 +2709,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ngrx/signals@npm:^19.0.1":
+  version: 19.0.1
+  resolution: "@ngrx/signals@npm:19.0.1"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  peerDependencies:
+    "@angular/core": ^19.0.0
+    rxjs: ^6.5.3 || ^7.4.0
+  peerDependenciesMeta:
+    rxjs:
+      optional: true
+  checksum: 10c0/23ddc8de331d4c005c84622a037f9d6b3af5a76fded3397c55c7aed2d287e9bfa972cef542894c2c9d527d7d68737d475be58a7144982d76b7a5ef53787cfac6
+  languageName: node
+  linkType: hard
+
 "@ngrx/store-devtools@npm:^19.0.1":
   version: 19.0.1
   resolution: "@ngrx/store-devtools@npm:19.0.1"
@@ -4113,6 +4128,7 @@ __metadata:
     "@angular/router": "npm:^19.1.6"
     "@ngrx/effects": "npm:^19.0.1"
     "@ngrx/entity": "npm:^19.0.1"
+    "@ngrx/signals": "npm:^19.0.1"
     "@ngrx/store": "npm:^19.0.1"
     "@ngrx/store-devtools": "npm:^19.0.1"
     "@types/jasmine": "npm:~4.3.0"
